@@ -6,12 +6,12 @@
 #### 1、实时监视Markdown文件的变化
 一开始的文件的结构如下所示
 
-![](https://github.com/linqian123/markdown-convertTo-html/blob/master/imgs/1.png)
+![](./imgs/1.png)
 
 `fs`模块当中用于监视文件变化的方法`fs.watchFile(filename[,options],listener(curr,prev));`其中`filename`参数为被监听的文件的绝对物理路径。可选参数`options`为一个对象，默认为`{persistent:true,interval:5007}`，即代表处于持续监听的状态，并且默认的时间间隔为`5s`左右。可以通过改变`interval`的值来使得间隔时间变短，减少延时。`listener(curr,prev)`为一个回调函数，当被监听的那个文件发生变化，并且在用户进行保存操作（即`ctrl+s`将内存当中编辑的文本写进磁盘）时，触发该回调函数。
 使用`process.argv[2]`来获取命令行当中传入的参数。用户在命令行当中输入该`markdown`文件相对于当前`js`脚本文件的相对路径。用法如下所示：
 
-![](https://github.com/linqian123/markdown-convertTo-html/blob/master/imgs/2.png)
+![](./imgs/2.png)
 
 #### 2、读取文件内容并转化为对应的HTML代码
 在上述的`listener(curr,prev)`的回调函数当中先对`curr`和`prev`这两个文件状态对象的`mtime`进行比较，从修改时间上进行判断文件在`ctrl+s`保存之后其内容是否真的发生了变化，以此来减少不必要的转化。再确定文件内容真的发生改变之后，再开始读取文件的操作。
@@ -28,7 +28,7 @@
 在读取了`markdown`文件内容之后，再利用`marked`这个第三方的模块包，将`markdown`中的代码直接转换为对应的`html`代码。
 先用命令`->npm install marked` 来下载该模块包，再用`const marked = require('marked');`来引包。`var html = marked(data);console.log(html);`
 
-![](https://github.com/linqian123/markdown-convertTo-html/blob/master/imgs/3.png)
+![](./imgs/3.png)
 
 #### 3、完成html代码的样式添加与骨架拼接
 
